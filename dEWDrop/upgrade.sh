@@ -2,6 +2,9 @@
 
 # Upgrade dEWDrop 5 VM to latest Node.js, NodeM and EWD.js, configure ready to run
 
+# Build 2: 29 June 2015
+#   Updated to use Node.js 0.12 and NodeM for 0.12
+
 # Upgrade Node.js
 
 sudo rm -rf /home/vista/.npm
@@ -28,8 +31,8 @@ sudo rm -rf /var/lib/dpkg/alternatives/npm
 sudo chattr -i ~/.profile
 curl https://raw.githubusercontent.com/creationix/nvm/v0.10.0/install.sh | sh
 source ~/.nvm/nvm.sh
-nvm alias default 0.10
-nvm install 0.10
+nvm alias default 0.12
+nvm install 0.12
 nvm use default
 echo 'nvm use default' >> ~/.profile
 
@@ -45,12 +48,10 @@ npm install nodem
 
 cd ~/ewdjs/node_modules/nodem/lib
 rm mumps.node
-mv mumps10.node_i686 mumps.node
+mv mumps12.node_i686 mumps.node
 
 # now ready to start EWD.js using:
 
 # cd ~/ewdjs
 # node ewdStart-gtm dewdrop-config
-
-
 
