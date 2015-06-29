@@ -4,6 +4,7 @@
 
 # Build 2: 29 June 2014
 #   Updated to use Node.js 0.12 and Nodem for 0,12
+#   Also updated to use NVM v0.25.4
 
 # Update first just to be sure
 
@@ -24,7 +25,7 @@ echo -e 'H\n' | /usr/lib/fis-gtm/${dirs[0]}/gtm -direct
 # Install NVM (Node.js Version Manager)
 
 sudo apt-get install -y curl
-curl https://raw.githubusercontent.com/creationix/nvm/v0.10.0/install.sh | sh
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 
 source ~/.nvm/nvm.sh
 nvm alias default 0.12

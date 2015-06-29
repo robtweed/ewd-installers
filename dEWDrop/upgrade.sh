@@ -4,6 +4,7 @@
 
 # Build 2: 29 June 2015
 #   Updated to use Node.js 0.12 and NodeM for 0.12
+#   Also updated to use NVM v0.25.4
 
 # Upgrade Node.js
 
@@ -29,7 +30,7 @@ sudo rm -rf /var/lib/dpkg/alternatives/npm
 # Install NVM and use it to install latest Node.js
 
 sudo chattr -i ~/.profile
-curl https://raw.githubusercontent.com/creationix/nvm/v0.10.0/install.sh | sh
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 source ~/.nvm/nvm.sh
 nvm alias default 0.12
 nvm install 0.12
