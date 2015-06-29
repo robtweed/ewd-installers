@@ -2,6 +2,9 @@
 
 # Install and configure a GT.M-based EWD.js System from scratch
 
+# Build 2: 29 June 2014
+#   Updated to use Node.js 0.12 and Nodem for 0,12
+
 # Update first just to be sure
 
 sudo apt-get update
@@ -24,8 +27,8 @@ sudo apt-get install -y curl
 curl https://raw.githubusercontent.com/creationix/nvm/v0.10.0/install.sh | sh
 
 source ~/.nvm/nvm.sh
-nvm alias default 0.10
-nvm install 0.10
+nvm alias default 0.12
+nvm install 0.12
 nvm use default
 echo 'nvm use default' >> ~/.profile
 
@@ -43,9 +46,9 @@ cd ~/ewdjs/node_modules/nodem/lib
 rm mumps.node
 MACHINE_TYPE=`uname -m`
 if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-  mv mumps10.node_x8664 mumps.node
+  mv mumps12.node_x8664 mumps.node
 else
-  mv mumps10.node_i686 mumps.node
+  mv mumps12.node_i686 mumps.node
 fi
 
 # Set up symbolic link to libgtmshr so that it's available for use by NodeM
