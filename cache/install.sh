@@ -18,19 +18,6 @@ sudo sysctl -w kernel.shmmax=536870912
 sudo /bin/su -c "echo 'kernel.shmall=536870912' >> /etc/sysctl.conf"
 sudo /bin/su -c "echo 'kernel.shmmax=536870912' >> /etc/sysctl.conf"
 
-# Install NVM
-
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
-source ~/.nvm/nvm.sh
-nvm alias default 0.10
-nvm install 0.10
-nvm use default
-echo 'nvm use default' >> ~/.profile
-
-# Allow nvm-controlled node command to be called from sudo
-
-n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; sudo cp -r $n/{bin,lib,share} /usr/local
-
 # Install Cache from installation tar.gz file
 
 mkdir /tmp/cachekit
@@ -50,6 +37,19 @@ sudo ./cinstall
 #   Accept No to license - install your own later into /opt/cache/mgr
 #   Then accept settings
 
+# Install NVM and use it to install Node.js 0.10
+#  Note Cache does not yet support Node.js 0.12
+
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
+source ~/.nvm/nvm.sh
+nvm alias default 0.10
+nvm install 0.10
+nvm use default
+echo 'nvm use default' >> ~/.profile
+
+# Allow nvm-controlled node command to be called from sudo
+
+n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; sudo cp -r $n/{bin,lib,share} /usr/local
 
 # Now ready to install EWD.js:
 
@@ -59,6 +59,8 @@ cd ewdjs
 npm install ewdjs
 
 # Move the Node.js interface file into the correct place
+#  Assumes that Cache was installedd into /opt/cache
+#  Modify path as appropriate
 
 sudo mv /opt/cache/bin/cache0100.node ~/ewdjs/node_modules/cache.node
 
