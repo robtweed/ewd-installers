@@ -2,14 +2,15 @@
 
 # Install and configure a GT.M-based EWD.js System from scratch
 
-# Build 2: 29 June 2014
-#   Updated to use Node.js 0.12 and Nodem for 0,12
-#   Also updated to use NVM v0.25.4
+# Build 3: 5 January 2016
+#   Updated to use latest Nodem LTS version
+#   Also updated to use NVM v0.30.1
 
 # Update first just to be sure
 
 sudo apt-get update
 sudo apt-get install -y openssh-server
+sudo apt-get install -y build-essential
 
 # Install GT.M
 
@@ -20,16 +21,21 @@ sudo apt-get install -y fis-gtm
 cd /usr/lib/fis-gtm
 dirs=( $(find . -maxdepth 1 -type d -printf '%P\n') )
 cd ~
+
 echo -e 'H\n' | /usr/lib/fis-gtm/${dirs[0]}/gtm -direct
+
 
 # Install NVM (Node.js Version Manager)
 
 sudo apt-get install -y curl
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 
 source ~/.nvm/nvm.sh
-nvm alias default 0.12
-nvm install 0.12
+#nvm alias default 0.12
+#nvm install 0.12
+
+nvm alias default 4.2
+nvm install 4.2
 nvm use default
 echo 'nvm use default' >> ~/.profile
 
@@ -39,18 +45,23 @@ cd ~
 mkdir ewdjs
 cd ewdjs
 npm install ewdjs
+
+export gtm_dist=/usr/lib/fis-gtm/${dirs[0]}
 npm install nodem
 
 # Change the Nodem mumps.node to the correct one:
 
-cd ~/ewdjs/node_modules/nodem/lib
-rm mumps.node
-MACHINE_TYPE=`uname -m`
-if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-  mv mumps12.node_x8664 mumps.node
-else
-  mv mumps12.node_i686 mumps.node
-fi
+#cd ~/ewdjs/node_modules/nodem/lib
+#rm mumps.node
+#MACHINE_TYPE=`uname -m`
+#if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+#  #mv mumps12.node_x8664 mumps.node
+#  mv mumps5.1.node_x8664 mumps.node
+#else
+#  #mv mumps12.node_i686 mumps.node
+#  mv mumps5.1.node_i686 mumps.node
+#fi
+
 
 # Set up symbolic link to libgtmshr so that it's available for use by NodeM
 
