@@ -2,8 +2,8 @@
 
 # Upgrade dEWDrop 5 VM to latest Node.js, NodeM and EWD.js, configure ready to run
 
-# Build 3: 05 January 2016
-#   Updated to use Node.js 4.2 and latest Nodem build
+# Build 4: 07 January 2016
+#   Updated to use Node.js 0.12 (pending 4.2 fix for NodeM) and latest Nodem build
 #   Also updated to use NVM v0.30
 
 # Upgrade Node.js
@@ -32,8 +32,8 @@ sudo rm -rf /var/lib/dpkg/alternatives/npm
 sudo chattr -i ~/.profile
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 source ~/.nvm/nvm.sh
-nvm alias default 4.2
-nvm install 4.2
+nvm alias default 0.12
+nvm install 0.12
 nvm use default
 echo 'nvm use default' >> ~/.profile
 
