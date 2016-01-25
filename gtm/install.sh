@@ -2,9 +2,10 @@
 
 # Install and configure a GT.M-based EWD.js System from scratch
 
-# Build 3: 5 January 2016
+# Build 4: 25 January 2016
 #   Updated to use latest Nodem LTS version
 #   Also updated to use NVM v0.30.1
+#     Thanks to Nitin Bhutani for amendment to code for finding latest GT.M release
 
 # Update first just to be sure
 
@@ -20,10 +21,11 @@ sudo apt-get install -y fis-gtm
 
 cd /usr/lib/fis-gtm
 dirs=( $(find . -maxdepth 1 -type d -printf '%P\n') )
+release=${dirs[`echo ${#dirs[@]} - 1`]}
 cd ~
 
-echo -e 'H\n' | /usr/lib/fis-gtm/${dirs[0]}/gtm -direct
-
+# echo -e 'H\n' | /usr/lib/fis-gtm/${dirs[0]}/gtm -direct
+echo -e 'H\n' | /usr/lib/fis-gtm/$release/gtm -direct
 
 # Install NVM (Node.js Version Manager)
 

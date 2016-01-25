@@ -12,6 +12,8 @@ The installers included are as follows:
 - gtm: creates a GT.M-based EWD.js system
 - dEWDrop: upgrades a dEWDrop Virtual Machine to an EWD.js-based environment
 
+With thanks to David Wicksell for amendments to dEWDrop Upgrade Script
+
 Rob Tweed <rtweed@mgateway.com>  
 26 February 2015, M/Gateway Developments Ltd [http://www.mgateway.com](http://www.mgateway.com)  
 

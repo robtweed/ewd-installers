@@ -2,28 +2,21 @@
 
 # Upgrade dEWDrop 5 VM to latest Node.js, NodeM and EWD.js, configure ready to run
 
-# Build 4: 07 January 2016
-#   Updated to use Node.js 0.12 (pending 4.2 fix for NodeM) and latest Nodem build
+# Build 5: 25 January 2016
+#   Updated to use Node.js 4.2 and latest Nodem build
 #   Also updated to use NVM v0.30
+#   Thanks to David Wicksell for enhancements to upgrade script
 
 # Upgrade Node.js
 
-sudo rm -rf /home/vista/.npm
+sudo apt-get purge -y nodejs
+sudo apt-get autoremove -y
+hash -r
+rm /home/vista/mumps.node
+rm -rf /home/vista/NodeM
+rm -rf /home/vista/.npm
 sudo rm -rf /usr/lib/node_modules
-sudo rm -rf /etc/profile.d/nodejs.sh
-sudo rm -rf /usr/share/doc/nodejs-dev
-sudo rm -rf /usr/share/doc/nodejs
-sudo rm -rf /usr/share/man/man1/node*
-sudo rm -rf /usr/share/nodejs
-sudo rm -rf /usr/include/nodejs
-sudo rm -rf /usr/lib/nodejs
-sudo rm -rf /usr/bin/node
-sudo rm -rf /usr/bin/node*
-sudo rm -rf /var/lib/dpkg/info/nodejs*
-sudo rm -rf /var/lib/dpkg/alternatives/node*
-sudo rm -rf /usr/lib/dtrace/node.d
 sudo rm -rf /etc/alternatives/npm
-sudo rm -rf /usr/share/doc/npm
 sudo rm -rf /usr/bin/npm
 sudo rm -rf /var/lib/dpkg/alternatives/npm
 
@@ -32,10 +25,17 @@ sudo rm -rf /var/lib/dpkg/alternatives/npm
 sudo chattr -i ~/.profile
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
 source ~/.nvm/nvm.sh
-nvm alias default 0.12
-nvm install 0.12
-nvm use default
-echo 'nvm use default' >> ~/.profile
+nvm install 4.2
+nvm alias default 4.2
+
+# Install gcc 4.8 for Node.js 4.2
+
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install -y gcc-5
+sudo apt-get install -y g++-5
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
 
 # Now ready to install EWD.js and Nodem:
 
@@ -45,14 +45,13 @@ cd ewdjs
 npm install ewdjs
 npm install nodem
 
-# Change the Nodem mumps.node to the correct one:
+# Fix NodeM environment
 
-# cd ~/ewdjs/node_modules/nodem/lib
-# rm mumps.node
-# mv mumps12.node_i686 mumps.node
+sed -i '/# NodeM environment/,/source ${HOME}\/NodeM\/environ/d' ~/.profile
+export gtmroutines=${gtmroutines/ \/home\/vista\/NodeM\/6.0-001_i686/}
+cd ~
 
-# now ready to start EWD.js using:
+# Now ready to start EWD.js using:
 
 # cd ~/ewdjs
 # node ewdStart-gtm dewdrop-config
-
