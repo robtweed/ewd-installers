@@ -17,7 +17,8 @@ sudo /bin/su -c "echo 'kernel.shmall=536870912' >> /etc/sysctl.conf"
 sudo /bin/su -c "echo 'kernel.shmmax=536870912' >> /etc/sysctl.conf"
 
 cd ~
-wget http://globalsdb.org/sites/default/files/globals_2013.2.0.350.0_unix.tar.gz
+# wget http://globalsdb.org/sites/default/files/globals_2013.2.0.350.0_unix.tar.gz
+wget https://s3-eu-west-1.amazonaws.com/globalsdb/globals_2013.2.0.350.0_unix.tar.gz
 
 gzip -cd globals_2013.2.0.350.0_unix.tar.gz | tar -x
 rm globals_2013.2.0.350.0_unix.tar.gz
